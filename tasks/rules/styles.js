@@ -10,7 +10,7 @@ module.exports = (env) => {
   };
 
   return {
-    test: /\.css$/,
+    test: /\.s[ac]ss$/i,
     exclude: /node_modules/,
     use: [
       {
@@ -18,6 +18,9 @@ module.exports = (env) => {
       },
       {
         loader: 'css-loader' // Translates CSS into CommonJS
+      },
+      {
+        loader: 'sass-loader'
       },
       {
         loader: 'postcss-loader', // More CSS Plugins
@@ -33,7 +36,7 @@ module.exports = (env) => {
               require('postcss-functions')({ functions: stylePostFunctions }),
               require('postcss-each'),
               require('postcss-calc'),
-              require('postcss-hexrgba'),
+              // require('postcss-hexrgba'),
               require('postcss-fontpath'),
               require('postcss-nested'),
               require('autoprefixer'),
