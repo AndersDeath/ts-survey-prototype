@@ -34,9 +34,31 @@ class Question {
   }
 }
 
+class Survey {
+  questions: Question[] = []
+  constructor(questions: Question[]){
+    this.questions = questions;
+  }
+
+  public getFirst(): Question {
+    return this.questions[0];
+  }
+
+  public findById(id: number): Question {
+    return this.questions.find((e: Question) => {
+      return e.id = id;
+    })
+  }
+
+  public count() {
+    return this.questions.length;
+  }
+}
+
 
 class App {
   public testJson: any;
+  public stack: Question[] = [];
   constructor() {
     console.log('App is ready');
     this.init();
@@ -47,9 +69,16 @@ class App {
       console.log('click to test');
     });
     this.testJson = this.testBuilder();
+    this.magic(new Survey(this.testBuilder()));
   }
 
-  testBuilder() {
+  private magic(survey: Survey) {
+    console.log(survey);
+    console.log(survey.getFirst());
+    console.log(survey.findById(3));
+  }
+
+  private testBuilder(): Question[] {
 
     const firstAnswer = new Answer({
       id: 1,
@@ -71,7 +100,8 @@ class App {
       id: 1,
       text: 'first question',
       weight: 1,
-      answers: [firstAnswer, secondAnswer]
+      answers: [firstAnswer, secondAnswer],
+      type: 'radio'
     });
 
     const secondQuestion = new Question({
