@@ -39,16 +39,22 @@ class App {
   }
 }
 
-function createInput(type: string, name: string = '', id: string = '') {
+function createInput(type: string, text: string, id: number = 0, name: string = '') {
   const input = document.createElement('input');
   if(name) {
     input.setAttribute('name', name);
   }
   if(id) {
-    input.setAttribute('id', id);
+    input.setAttribute('id', id.toString());
   }
   input.setAttribute('type', type);
-  return input;
+  const label = document.createElement('label');
+  label.setAttribute('for', id.toString());
+  label.innerHTML = text;
+  const span = document.createElement('span');
+  span.appendChild(label);
+  span.appendChild(input);
+  return span;
 
 }
 
@@ -60,7 +66,8 @@ function radioQuestion(question: Question) {
   div.appendChild(p)
   const answers = [];
   question.answers.forEach((e) => {
-    div.appendChild(createInput('radio'));
+    div.appendChild(createInput('radio', e.text, e.id));
+
   });
   return div;
 }
@@ -73,5 +80,5 @@ const app = new App();
 
 document.querySelector('#application').appendChild(radioQuestion(app.testJson[0]));
 
-let str = JSON.stringify(app.testJson, undefined, 4);
-document.querySelector('#jsonMonitor').innerHTML = str;
+// let str = JSON.stringify(app.testJson, undefined, 4);
+// document.querySelector('#jsonMonitor').innerHTML = str;
