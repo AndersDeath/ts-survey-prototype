@@ -29,7 +29,9 @@ class App {
     // console.log(survey.getFirst());
     // console.log(survey.findById(3));
     const next = survey.nextByAnswer(6);
+    const next2 = survey.nextByQuestion(2);
     console.log(next);
+    console.log(next2);
   }
 
 
@@ -38,6 +40,15 @@ class App {
     return window.crypto.randomUUID()
   }
 }
+
+function readioQuestion() {
+
+}
+
+function openQuestion() {
+
+}
+
 
 const app = new App();
 

@@ -24,21 +24,24 @@ export function testBuilder(): Question[] {
     text: 'first question',
     sort: 1,
     answers: [firstAnswer, secondAnswer],
-    type: 'radio'
+    type: 'radio',
+    nextQuestionId: 2
   });
 
   const secondQuestion = new Question({
     id: 2,
     text: 'second question',
     sort: 1,
-    answers: []
+    answers: [],
+    nextQuestionId: 3
   });
 
   const thirdQuestion = new Question({
     id: 3,
     text: 'third question',
     sort: 1,
-    answers: []
+    answers: [],
+    nextQuestionId: null
   });
 
   return [

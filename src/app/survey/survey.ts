@@ -35,6 +35,10 @@ export class Survey {
     return this.findById(answer.nextQuestionId);
   }
 
+  public nextByQuestion(answerId: number) {
+    return this.findById(answerId);
+  }
+
   public count() {
     return this.questions.length;
   }

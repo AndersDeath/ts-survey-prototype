@@ -9,7 +9,7 @@ export class Answer {
     this.text = json['text'] || 'no text';
     this.sort = json['sort'] || 1;
     this.parentId = json['parentId'] || 0;
-    this.nextQuestionId = json['nextQuestionId'] || 0;
+    this.nextQuestionId = json['nextQuestionId'] || null;
   }
 }
 
@@ -20,12 +20,14 @@ export class Question {
   public sort: number;
   public type: string;
   public answers: Answer[];
+  public nextQuestionId: number;
   constructor(json) {
     this.id = json['id'] || 0;
     this.text = json['text'] || 'no text';
     this.sort = json['sort'] || 1;
     this.answers = json['answers'] || [];
     this.type = json['type'] || 'textarea';
+    this.nextQuestionId = json['nextQuestionId'] || null;
   }
 }
 
