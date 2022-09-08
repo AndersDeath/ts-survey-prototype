@@ -34,8 +34,19 @@ class Question {
   }
 }
 
+class Result {
+  text: string;
+  answers: string[];
+
+  constructor(json) {
+    this.text = json['text'] || 'no text';
+    this.answers = json['answers'] || [];
+  }
+}
+
 class Survey {
   questions: Question[] = [];
+  results: Result[] = [];
   constructor(questions: Question[]){
     this.questions = questions;
   }
@@ -65,18 +76,20 @@ class Survey {
   }
 
   public nextByAnswer(answerId: number) {
-    // console.log(questionId);
-    // console.log(answerId)
-    // const question = this.findById(questionId);
     const answer = this.findAnswerById(answerId);
-    console.log(answer)
-    // console.log(answer.nextQuestionId);
-    // console.log(this.findById(answer.nextQuestionId))
     return this.findById(answer.nextQuestionId);
   }
 
   public count() {
     return this.questions.length;
+  }
+
+  public addResult(result: Result) {
+    this.results.push(result);
+  }
+
+  public getResults() {
+    return this.results;
   }
 }
 
