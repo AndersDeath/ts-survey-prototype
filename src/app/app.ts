@@ -20,7 +20,7 @@ class App {
       console.log('click to test');
     });
     this.testJson = testBuilder();
-    console.log(testBuilder())
+    // console.log(testBuilder())
     this.magic(new Survey(testBuilder()));
   }
 
@@ -30,28 +30,48 @@ class App {
     // console.log(survey.findById(3));
     const next = survey.nextByAnswer(6);
     const next2 = survey.nextByQuestion(2);
-    console.log(next);
-    console.log(next2);
+    // console.log(next);
+    // console.log(next2);
   }
-
-
 
   getId() {
     return window.crypto.randomUUID()
   }
 }
 
-function readioQuestion() {
+function createInput(type: string, name: string = '', id: string = '') {
+  const input = document.createElement('input');
+  if(name) {
+    input.setAttribute('name', name);
+  }
+  if(id) {
+    input.setAttribute('id', id);
+  }
+  input.setAttribute('type', type);
+  return input;
 
+}
+
+function radioQuestion(question: Question) {
+  console.log(question);
+  const div = document.createElement('div');
+  const p = document.createElement('p');
+  p.innerHTML = question.text;
+  div.appendChild(p)
+  const answers = [];
+  question.answers.forEach((e) => {
+    div.appendChild(createInput('radio'));
+  });
+  return div;
 }
 
 function openQuestion() {
 
 }
-
-
 const app = new App();
 
+
+document.querySelector('#application').appendChild(radioQuestion(app.testJson[0]));
+
 let str = JSON.stringify(app.testJson, undefined, 4);
-console.log(str)
 document.querySelector('#jsonMonitor').innerHTML = str;
