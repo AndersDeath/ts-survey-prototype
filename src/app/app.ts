@@ -1,13 +1,6 @@
 import $ from 'jquery';
 import 'styles/app.scss';
 import './vendor';
-console.log('JQUERY SHOULD BE REMOVED!')
-const a = 1;
-console.log($, a);
-
-if (true) {
-  console.log('should work')
-}
 
 class Answer {
   public id: number;
@@ -38,3 +31,19 @@ class Question {
   }
 }
 
+
+class App {
+  constructor() {
+    console.log('App is ready');
+    this.init();
+  }
+
+  public init() {
+    document.querySelector('#test').addEventListener('click', () => {
+      console.log('click to test');
+    })
+  }
+
+}
+
+new App();
