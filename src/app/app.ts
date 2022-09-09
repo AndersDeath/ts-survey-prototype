@@ -50,7 +50,6 @@ function radioQuestion(question) {
     <input name="question${question.id}" id="${e.id}" type="radio" class="form-check-input">
     <label for="${e.id}" class="form-check-label">${e.text}</label>
   </span>`
-
   });
   div += `</div>`;
 
