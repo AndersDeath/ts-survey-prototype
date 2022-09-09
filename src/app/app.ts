@@ -5,8 +5,6 @@ import 'styles/app.scss';
 import './vendor';
 import { testBuilder } from './testBuilder';
 
-
-
 class App {
   public testJson: any;
   public stack: Question[] = [];
@@ -35,51 +33,30 @@ class App {
   }
 
   getId() {
-    return window.crypto.randomUUID()
+    return window.crypto.randomUUID();
   }
 }
 
-function createInput(type: string, text: string, id: number = 0, name: string = '') {
-  const input = document.createElement('input');
-  if(name) {
-    input.setAttribute('name', name);
-  }
-  if(id) {
-    input.setAttribute('id', id.toString());
-  }
-  input.setAttribute('type', type);
-  const label = document.createElement('label');
-  label.setAttribute('for', id.toString());
-  label.innerHTML = text;
-  const span = document.createElement('span');
-  span.classList.add('form-check');
 
-  input.classList.add('form-check-input')
-  label.classList.add('form-check-label')
-  span.appendChild(input);
-  span.appendChild(label);
+function openQuestion() {}
 
-  return span;
+function radioQuestion(question) {
 
-}
+  let div = `<div class="card" style="width: 200px;">
+  <p>${question.text}</p>`;
 
-function radioQuestion(question: Question) {
-  console.log(question);
-  const div = document.createElement('div');
-  div.classList.add('card');
-  div.style.width='200px';
-  const p = document.createElement('p');
-  p.innerHTML = question.text;
-  div.appendChild(p)
-  const answers = [];
   question.answers.forEach((e) => {
-    div.appendChild(createInput('radio', e.text, e.id, 'question' + question.id));
+    div += `<span class="form-check">
+    <input name="question${question.id}" id="${e.id}" type="radio" class="form-check-input">
+    <label for="${e.id}" class="form-check-label">${e.text}</label>
+  </span>`
+
   });
-  return div;
-}
+  div += `</div>`;
 
-function openQuestion() {
-
+  const el = document.createElement('span');
+  el.innerHTML = div;
+  return el.firstElementChild
 }
 const app = new App();
 
