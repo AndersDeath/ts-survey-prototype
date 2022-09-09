@@ -52,8 +52,13 @@ function createInput(type: string, text: string, id: number = 0, name: string = 
   label.setAttribute('for', id.toString());
   label.innerHTML = text;
   const span = document.createElement('span');
-  span.appendChild(label);
+  span.classList.add('form-check');
+
+  input.classList.add('form-check-input')
+  label.classList.add('form-check-label')
   span.appendChild(input);
+  span.appendChild(label);
+
   return span;
 
 }
@@ -61,13 +66,14 @@ function createInput(type: string, text: string, id: number = 0, name: string = 
 function radioQuestion(question: Question) {
   console.log(question);
   const div = document.createElement('div');
+  div.classList.add('card');
+  div.style.width='200px';
   const p = document.createElement('p');
   p.innerHTML = question.text;
   div.appendChild(p)
   const answers = [];
   question.answers.forEach((e) => {
-    div.appendChild(createInput('radio', e.text, e.id));
-
+    div.appendChild(createInput('radio', e.text, e.id, 'question' + question.id));
   });
   return div;
 }
