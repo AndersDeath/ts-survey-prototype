@@ -21,9 +21,9 @@ export class Survey {
 
   public findAnswerById(answerId: number): Answer | null {
     for (let index = 0; index < this.questions.length; index++) {
-      for (let q = 0; q < this.questions[index].answers.length; q++) {
-       if (this.questions[index].answers[q].id === answerId) {
-        return this.questions[index].answers[q];
+      for (let q = 0; q < this.questions[index].answerGroup.length; q++) {
+       if (this.questions[index].answerGroup[q].id === answerId) {
+        return this.questions[index].answerGroup[q];
        }
       }
     }

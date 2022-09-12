@@ -57,7 +57,7 @@ function radioQuestion(question) {
 
   let div = `<p>${question.text}</p>`;
 
-  question.answers.forEach((e) => {
+  question.answerGroup.forEach((e) => {
     div += `<span class="form-check">
     <input name="question${question.id}" id="${e.id}" type="radio" class="form-check-input">
     <label for="${e.id}" class="form-check-label">${e.text}</label>

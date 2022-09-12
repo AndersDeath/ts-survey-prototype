@@ -23,7 +23,7 @@ export function testBuilder(): Question[] {
     id: 1,
     text: 'first question',
     sort: 1,
-    answers: [firstAnswer, secondAnswer],
+    answerGroup: [firstAnswer, secondAnswer],
     type: 'radio',
     nextQuestionId: 2
   });
@@ -32,7 +32,7 @@ export function testBuilder(): Question[] {
     id: 2,
     text: 'second question',
     sort: 1,
-    answers: [],
+    type: 'textarea',
     nextQuestionId: 3
   });
 
@@ -40,7 +40,7 @@ export function testBuilder(): Question[] {
     id: 3,
     text: 'third question',
     sort: 1,
-    answers: [],
+    type: 'textarea',
     nextQuestionId: null
   });
 

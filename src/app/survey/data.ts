@@ -19,15 +19,17 @@ export class Question {
   public text: string;
   public sort: number;
   public type: string;
-  public answers: Answer[];
+  public answerGroup: Answer[];
+  public textAnswer: string;
   public nextQuestionId: number;
   constructor(json) {
     this.id = json['id'] || 0;
     this.text = json['text'] || 'no text';
     this.sort = json['sort'] || 1;
-    this.answers = json['answers'] || [];
+    this.answerGroup = json['answerGroup'] || [];
     this.type = json['type'] || 'textarea';
     this.nextQuestionId = json['nextQuestionId'] || null;
+    this.textAnswer = json['textAnswer'] || '';
   }
 }
 
