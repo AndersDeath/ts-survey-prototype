@@ -37,6 +37,12 @@ class App {
   }
 }
 
+function stringToDom(str: string) {
+  const el = document.createElement('span');
+  el.innerHTML = str;
+  return el.firstElementChild;
+}
+
 
 function openQuestion() {}
 
@@ -53,9 +59,7 @@ function radioQuestion(question) {
   });
   div += `</div>`;
 
-  const el = document.createElement('span');
-  el.innerHTML = div;
-  return el.firstElementChild
+  return stringToDom(div);
 }
 const app = new App();
 
