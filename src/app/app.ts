@@ -47,8 +47,10 @@ function card(str: string) {
   return  `<div class="card" style="width: 200px;">${str}</div>`;
 }
 
-function openQuestion() {
-
+function openQuestion(question) {
+  const div = `<label for="exampleFormControlTextarea1">Example textarea</label>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>`;
+  return stringToDom(card(div));
 }
 
 function radioQuestion(question) {
@@ -67,6 +69,8 @@ const app = new App();
 
 
 document.querySelector('#application').appendChild(radioQuestion(app.testJson[0]));
+document.querySelector('#application').appendChild(openQuestion(app.testJson[0]));
+
 
 // let str = JSON.stringify(app.testJson, undefined, 4);
 // document.querySelector('#jsonMonitor').innerHTML = str;
