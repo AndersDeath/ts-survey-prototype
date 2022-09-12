@@ -14,9 +14,6 @@ class App {
   }
 
   public init() {
-    document.querySelector('#test').addEventListener('click', () => {
-      console.log('click to test');
-    });
     this.testJson = testBuilder();
     // console.log(testBuilder())
     this.magic(new Survey(testBuilder()));
@@ -48,8 +45,8 @@ function card(str: string) {
 }
 
 function openQuestion(question) {
-  const div = `<label for="exampleFormControlTextarea1">Example textarea</label>
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>`;
+  const div = `<label for="${question.id}">${question.text}</label>
+  <textarea class="form-control" id="question${question.id}" rows="3"></textarea>`;
   return stringToDom(card(div));
 }
 
@@ -59,7 +56,7 @@ function radioQuestion(question) {
 
   question.answerGroup.forEach((e) => {
     div += `<span class="form-check">
-    <input name="question${question.id}" id="${e.id}" type="radio" class="form-check-input">
+    <input name="question${question.id}" value="${e.text}" id="${e.id}" type="radio" class="form-check-input">
     <label for="${e.id}" class="form-check-label">${e.text}</label>
   </span>`
   });
@@ -67,9 +64,42 @@ function radioQuestion(question) {
 }
 const app = new App();
 
+const firstQuestion = app.testJson[1];
 
-document.querySelector('#application').appendChild(radioQuestion(app.testJson[0]));
-document.querySelector('#application').appendChild(openQuestion(app.testJson[0]));
+function buildQuestion(question) {
+  let output = {
+    element: null,
+    question
+  }
+  switch (question.type) {
+    case 'textarea':
+      output.element = openQuestion(question)
+      break;
+    case 'radio':
+      output.element = radioQuestion(question)
+    break;
+  }
+  return output;
+}
+
+const el = buildQuestion(firstQuestion);
+
+const button = stringToDom(`<button>ok</button>`);
+button.addEventListener('click', (event)=> {
+  if(el.question.type === 'radio') {
+    const elements = document.querySelectorAll('[name="question' + el.question.id + '"]');
+    let checkedRadio = Array.from(elements).find((radio) => radio['checked']);
+    console.log(checkedRadio['id']);
+  }
+  if(el.question.type === 'textarea') {
+    const element = document.querySelector('#question' + el.question.id);
+    console.log(element['value'])
+  }
+
+});
+document.querySelector('#application').appendChild(el.element);
+document.querySelector('#application').appendChild(button);
+
 
 
 // let str = JSON.stringify(app.testJson, undefined, 4);
