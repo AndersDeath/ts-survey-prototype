@@ -43,13 +43,17 @@ function stringToDom(str: string) {
   return el.firstElementChild;
 }
 
+function card(str: string) {
+  return  `<div class="card" style="width: 200px;">${str}</div>`;
+}
 
-function openQuestion() {}
+function openQuestion() {
+
+}
 
 function radioQuestion(question) {
 
-  let div = `<div class="card" style="width: 200px;">
-  <p>${question.text}</p>`;
+  let div = `<p>${question.text}</p>`;
 
   question.answers.forEach((e) => {
     div += `<span class="form-check">
@@ -57,9 +61,7 @@ function radioQuestion(question) {
     <label for="${e.id}" class="form-check-label">${e.text}</label>
   </span>`
   });
-  div += `</div>`;
-
-  return stringToDom(div);
+  return stringToDom(card(div));
 }
 const app = new App();
 
