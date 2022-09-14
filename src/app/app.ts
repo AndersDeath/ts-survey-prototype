@@ -1,9 +1,9 @@
 import { Survey } from './survey/survey';
-import { Question, Answer } from './survey/data';
+import { Question, Answer } from './survey/survey.model';
 import $ from 'jquery';
 import 'styles/app.scss';
 import './vendor';
-import { testBuilder } from './testBuilder';
+import { surveyMock } from './survey/survey.mock';
 
 class App {
   public testJson: any;
@@ -14,9 +14,9 @@ class App {
   }
 
   public init() {
-    this.testJson = testBuilder();
+    this.testJson = surveyMock();
     // console.log(testBuilder())
-    this.magic(new Survey(testBuilder()));
+    this.magic(new Survey(surveyMock()));
   }
 
   private magic(survey: Survey) {

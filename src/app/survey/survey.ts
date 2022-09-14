@@ -1,11 +1,16 @@
-import { Question, Result, Answer } from './data';
+import { Question, Result, Answer } from './survey.model';
 export class Survey {
   questions: Question[] = [];
-  results: Result[] = [];
-  constructor(questions: Question[]){
-    this.questions = questions;
+  results: Answer[] = [];
+  constructor(questions: any){
+    this.questions = (() => {
+      let res = [];
+      questions?.forEach((e) => {
+        res.push(new Question(e));
+      })
+      return res;
+    })() || [];
   }
-
   public getFirst(): Question {
     return this.questions[0];
   }
@@ -30,6 +35,14 @@ export class Survey {
     return null;
   }
 
+  public updateAnswer(answer) {
+    console.log(answer);
+  }
+
+  public updateQuestion(question) {
+    console.log(question);
+  }
+
   public nextByAnswer(answerId: number) {
     const answer = this.findAnswerById(answerId);
     return this.findById(answer.nextQuestionId);
@@ -43,11 +56,15 @@ export class Survey {
     return this.questions.length;
   }
 
-  public addResult(result: Result) {
+  public addResult(result: Answer) {
     this.results.push(result);
   }
 
   public getResults() {
     return this.results;
+  }
+
+  public get() {
+    return this.questions;
   }
 }

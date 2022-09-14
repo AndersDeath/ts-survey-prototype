@@ -4,12 +4,14 @@ export class Answer {
   public sort: number;
   public parentId: number;
   public nextQuestionId: number;
+  public checked: boolean;
   constructor(json) {
     this.id = json['id'] || 0;
     this.text = json['text'] || 'no text';
     this.sort = json['sort'] || 1;
     this.parentId = json['parentId'] || 0;
     this.nextQuestionId = json['nextQuestionId'] || null;
+    this.checked = json['checked'] || false;
   }
 }
 
@@ -26,7 +28,13 @@ export class Question {
     this.id = json['id'] || 0;
     this.text = json['text'] || 'no text';
     this.sort = json['sort'] || 1;
-    this.answerGroup = json['answerGroup'] || [];
+    this.answerGroup = (() => {
+      let res = [];
+      json['answerGroup']?.forEach((e) => {
+        res.push(new Answer(e));
+      })
+      return res;
+    })() || [];
     this.type = json['type'] || 'textarea';
     this.nextQuestionId = json['nextQuestionId'] || null;
     this.textAnswer = json['textAnswer'] || '';
