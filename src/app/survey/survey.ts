@@ -1,7 +1,6 @@
-import { Question, Result, Answer } from './survey.model';
+import { Question, Result, Answer, QUESTION_TYPES } from './survey.model';
 export class Survey {
   questions: Question[] = [];
-  results: Answer[] = [];
   constructor(questions: any){
     this.questions = (() => {
       let res = [];
@@ -45,7 +44,7 @@ export class Survey {
 
   public nextByAnswer(answerId: number) {
     const answer = this.findAnswerById(answerId);
-    return this.findById(answer.nextQuestionId);
+    return this.findById(answer.nextId);
   }
 
   public nextByQuestion(answerId: number) {
@@ -56,12 +55,43 @@ export class Survey {
     return this.questions.length;
   }
 
-  public addResult(result: Answer) {
-    this.results.push(result);
-  }
 
   public getResults() {
-    return this.results;
+    const results = [];
+    this.questions.forEach((e: Question) => {
+      if(e.type === QUESTION_TYPES.TEXTAREA) {
+        results.push({
+          text: e.text,
+          answer: e.textAnswer
+        });
+      }
+      if(e.type === QUESTION_TYPES.RADIO ) {
+        results.push({
+          text: e.text,
+          answer: (() => {
+            let temp: Answer[] = e.answerGroup.filter((a: Answer) => {
+              return a.checked;
+            });
+            return temp[0].text
+          })()
+        });
+      }
+      if(e.type === QUESTION_TYPES.CHECKBOX) {
+        results.push({
+          text: e.text,
+          answer: (() => {
+            const temp = [];
+            e.answerGroup.forEach((a: Answer) => {
+              if(a.checked) {
+                temp.push(a.text);
+              }
+            });
+            return temp;
+          })()
+        });
+      }
+    });
+    return results;
   }
 
   public get() {

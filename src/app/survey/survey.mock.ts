@@ -1,4 +1,4 @@
-import { Question, Answer } from './survey.model';
+import { Question, Answer, QUESTION_TYPES } from './survey.model';
 
 
 export function surveyMock(): Question[] {
@@ -10,7 +10,7 @@ export function surveyMock(): Question[] {
       text: 'first answer',
       sort: 1,
       parentId: 1,
-      nextQuestionId: 2
+      nextId: 2
     });
 
     const secondAnswer = new Answer({
@@ -18,7 +18,7 @@ export function surveyMock(): Question[] {
       text: 'second answer',
       sort: 2,
       parentId: 1,
-      nextQuestionId: 3
+      nextId: 3
     });
 
     return new Question({
@@ -26,8 +26,8 @@ export function surveyMock(): Question[] {
       text: 'first question',
       sort: 1,
       answerGroup: [firstAnswer, secondAnswer],
-      type: 'radio',
-      nextQuestionId: 2
+      type: QUESTION_TYPES.RADIO,
+      nextId: 2
     });
   }
 
@@ -36,8 +36,9 @@ export function surveyMock(): Question[] {
       id: 2,
       text: 'second question',
       sort: 1,
-      type: 'textarea',
-      nextQuestionId: 3
+      type: QUESTION_TYPES.TEXTAREA,
+      nextId: 3,
+      parentId: 1
     });
   }
 
@@ -46,8 +47,9 @@ export function surveyMock(): Question[] {
       id: 3,
       text: 'third question',
       sort: 1,
-      type: 'textarea',
-      nextQuestionId: 4
+      type: QUESTION_TYPES.TEXTAREA,
+      nextId: 4,
+      parentId: 2
     });
   }
   const fourthQuestion = () => {
@@ -56,23 +58,23 @@ export function surveyMock(): Question[] {
       id: 7,
       text: 'third answer',
       sort: 2,
-      parentId: 1,
-      nextQuestionId: 5
+      parentId: 3,
+      nextId: 5
     });
 
     const fourthAnswer = new Answer({
-      id: 7,
+      id: 8,
       text: 'fourth answer',
       sort: 2,
-      parentId: 1,
-      nextQuestionId: 5
+      parentId: 3,
+      nextId: 5
     });
 
     return new Question({
       id: 4,
       text: 'fourth question',
       sort: 1,
-      type: 'radio',
+      type: QUESTION_TYPES.RADIO,
       answerGroup: [thirdAnswer, fourthAnswer],
     });
   }
@@ -85,7 +87,7 @@ export function surveyMock(): Question[] {
       text: 'Multiple answers question ANSWER 1',
       sort: 1,
       parentId: 5,
-      nextQuestionId: null
+      nextId: null
     });
 
     const answer2 = new Answer({
@@ -93,7 +95,7 @@ export function surveyMock(): Question[] {
       text: 'Multiple answers question ANSWER 2',
       sort: 2,
       parentId: 5,
-      nextQuestionId: null
+      nextId: null
     });
 
 
@@ -102,7 +104,7 @@ export function surveyMock(): Question[] {
       text: 'Multiple answers question ANSWER 3',
       sort: 3,
       parentId: 5,
-      nextQuestionId: null
+      nextId: null
     });
 
     const answer4 = new Answer({
@@ -110,14 +112,15 @@ export function surveyMock(): Question[] {
       text: 'Multiple answers question ANSWER 4',
       sort: 4,
       parentId: 5,
-      nextQuestionId: null
+      nextId: null
     });
 
     return new Question({
       id: 5,
       text: 'Multiple answers question',
       sort: 1,
-      type: 'checkbox',
+      type: QUESTION_TYPES.CHECKBOX,
+      parentId: 4,
       answerGroup: [
         answer1,
         answer2,
