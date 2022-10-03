@@ -1,7 +1,8 @@
 export enum QUESTION_TYPES {
   TEXTAREA = "TEXTAREA",
   RADIO = 'RADIO',
-  CHECKBOX = 'CHECKBOX'
+  CHECKBOX = 'CHECKBOX',
+  SELECTOR = 'SELECTOR'
 }
 export class Answer {
   public id: number;
