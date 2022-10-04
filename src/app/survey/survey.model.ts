@@ -2,8 +2,12 @@ export enum QUESTION_TYPES {
   TEXTAREA = "TEXTAREA",
   RADIO = 'RADIO',
   CHECKBOX = 'CHECKBOX',
-  SELECTOR = 'SELECTOR'
+  SELECT = 'SELECT',
+  SCORE = 'SCORE',
+  TEXT_PANEL = 'TEXT_PANEL',
+  FILE_UPLOAD = 'FILE_UPLOAD'
 }
+
 export class Answer {
   public id: number;
   public text: string;
@@ -21,7 +25,6 @@ export class Answer {
   }
 }
 
-
 export class Question {
   public id: number;
   public text: string;
@@ -31,6 +34,10 @@ export class Question {
   public textAnswer: string;
   public nextId: number;
   public parentId: number;
+  public numberAnswer: number;
+  public base64Answer: string;
+  public scoreInterval: number[];
+
   constructor(json) {
     this.id = json['id'] || 0;
     this.text = json['text'] || 'no text';
@@ -46,6 +53,9 @@ export class Question {
     this.nextId = json['nextId'] || null;
     this.parentId = json['parentId'] || null;
     this.textAnswer = json['textAnswer'] || '';
+    this.numberAnswer = json['numberAnswer'] || null;
+    this.base64Answer = json['base64Answer'] || '';
+    this.scoreInterval = json['scoreInterval'] || []
   }
 }
 

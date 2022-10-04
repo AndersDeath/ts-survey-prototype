@@ -1,7 +1,7 @@
 import { Question, Answer, QUESTION_TYPES } from './survey.model';
 
 
-export function surveyMock(): Question[] {
+export function oldSurveyMock(): Question[] {
 
   const firstQuestion = () => {
 
@@ -52,6 +52,7 @@ export function surveyMock(): Question[] {
       parentId: 2
     });
   }
+
   const fourthQuestion = () => {
 
     const thirdAnswer = new Answer({
@@ -78,7 +79,6 @@ export function surveyMock(): Question[] {
       answerGroup: [thirdAnswer, fourthAnswer],
     });
   }
-
 
   const multipleAnswerQuestion = () => {
 
@@ -129,14 +129,291 @@ export function surveyMock(): Question[] {
       ],
     });
   }
-
   return [
     firstQuestion(),
     secondQuestion(),
     thirdQuestion(),
     fourthQuestion(),
     multipleAnswerQuestion()
+  ];
+}
+
+export function surveyMock(): Question[] {
+
+
+  // -------- SELECT
+  const countryQuestion = () => {
+
+
+    const englandAnswer = new Answer({
+      id: 1,
+      text: 'Great Britain',
+      sort: 1,
+      parentId: null,
+      nextId: 2
+    });
+
+    const franceAnswer = new Answer({
+      id: 2,
+      text: 'France',
+      sort: 2,
+      parentId: null,
+      nextId: 3
+    });
+
+    return new Question({
+      id: 1,
+      text: 'Where are you from?',
+      sort: 1,
+      type: QUESTION_TYPES.SELECT,
+      answerGroup: [englandAnswer, franceAnswer],
+      nextId: 2,
+      parentId: null
+    })
+  }
+
+  // -------- RADIO
+  const haveYouSkydived = () => {
+    const firstAnswer = new Answer({
+      id: 1,
+      text: 'Yes',
+      sort: 1,
+      parentId: 1,
+      nextId: 3
+    });
+
+    const secondAnswer = new Answer({
+      id: 2,
+      text: 'No',
+      sort: 2,
+      parentId: 1,
+      nextId: 4
+    });
+
+    return new Question({
+      id: 2,
+      text: 'Have you ever skydived?',
+      sort: 1,
+      answerGroup: [firstAnswer, secondAnswer],
+      type: QUESTION_TYPES.RADIO,
+      nextId: 2,
+      parentId: 1
+    });
+  }
+
+  // -------- SCORE
+  const didYouLikeSkydiving = () => {
+    return new Question({
+      id: 3,
+      text: 'Did you like it? score it from 0 to 5, where 0 is don’t like, 5 is absolutely amazing',
+      sort: 1,
+      type: QUESTION_TYPES.SCORE,
+      nextId: 5,
+      parentId: 2,
+      scoreInterval: [5, 10]
+    });
+  }
+
+  // -------- RADIO
+  const doYouWantToTry = () => {
+    const firstAnswer = new Answer({
+      id: 5,
+      text: 'Yes',
+      sort: 1,
+      parentId: 2,
+      nextId:  5
+    });
+
+    const secondAnswer = new Answer({
+      id: 6,
+      text: 'No',
+      sort: 2,
+      parentId: 2,
+      nextId: 6
+    });
+
+    return new Question({
+      id: 4,
+      text: 'Do you want to try?',
+      sort: 1,
+      answerGroup: [firstAnswer, secondAnswer],
+      type: QUESTION_TYPES.RADIO,
+      nextId: null,
+      parentId: 2
+    });
+  }
+
+  // -------- TEXTAREA
+  const whatDoYouWantToTell = () => {
+    return new Question({
+      id: 5,
+      text: 'What do you whant to tell others who wants to skydive?',
+      sort: 1,
+      type: QUESTION_TYPES.TEXTAREA,
+      nextId: 7,
+      parentId: null
+    });
+  }
+
+  // -------- CHECKBOX
+  const whyDontYouWant = () => {
+    const answer1 = new Answer({
+      id: 7,
+      text: "it's too scary",
+      sort: 1,
+      parentId: 4,
+      nextId: 7
+    });
+
+    const answer2 = new Answer({
+      id: 8,
+      text: "it’s too dangerous",
+      sort: 2,
+      parentId: 4,
+      nextId: 7
+    });
+
+
+    const answer3 = new Answer({
+      id: 9,
+      text: "it’s to expensive",
+      sort: 3,
+      parentId: 4,
+      nextId: 7
+    });
+
+    return new Question({
+      id: 6,
+      text: 'Why  do not you want to do it? You can select several variants',
+      sort: 1,
+      type: QUESTION_TYPES.CHECKBOX,
+      parentId: 4,
+      nextId: 7,
+      answerGroup: [
+        answer1,
+        answer2,
+        answer3
+      ],
+    });
+  }
+
+  // -------- TEXT_PANEL
+  const thanksPanel = () => {
+    return new Question({
+      id: 7,
+      text: `<h1>Thank you mister</h1><p>I won't forget you</p>`,
+      sort: 1,
+      type: QUESTION_TYPES.TEXT_PANEL,
+      nextId: null,
+      parentId: null
+    });
+  }
+  return [
+    countryQuestion(),
+    haveYouSkydived(),
+    didYouLikeSkydiving(),
+    doYouWantToTry(),
+    whatDoYouWantToTell(),
+    whyDontYouWant(),
+    thanksPanel()
   ]
+}
+
+export function radioSequenceDebugSurveyMock(): Question[] {
+  // --------
+  const firstYesNo = () => {
+    const firstAnswer = new Answer({
+      id: 1,
+      text: 'Yes',
+      sort: 1,
+      parentId: 1,
+      nextId: 2
+    });
+
+    const secondAnswer = new Answer({
+      id: 2,
+      text: 'No',
+      sort: 2,
+      parentId: 1,
+      nextId: 2
+    });
+
+    return new Question({
+      id: 1,
+      text: 'First Yes No',
+      sort: 1,
+      answerGroup: [firstAnswer, secondAnswer],
+      type: QUESTION_TYPES.RADIO,
+      nextId: 2,
+      parentId: null
+    });
+  }
+
+    // --------
+    const secondYesNo = () => {
+      const firstAnswer = new Answer({
+        id: 3,
+        text: 'Yes',
+        sort: 1,
+        parentId: 1,
+        nextId: null
+      });
+
+      const secondAnswer = new Answer({
+        id: 4,
+        text: 'No',
+        sort: 2,
+        parentId: 1,
+        nextId: null
+      });
+
+      return new Question({
+        id: 2,
+        text: 'Second Yes No',
+        sort: 1,
+        answerGroup: [firstAnswer, secondAnswer],
+        type: QUESTION_TYPES.RADIO,
+        nextId: null,
+        parentId: 1
+      });
+    }
+
+
+  return [
+    firstYesNo(),
+    secondYesNo()
+  ]
+}
+
+export function fileUploadSurveyMock(): Question[] {
+  const fileUploadQuestion = () => {
+      return new Question({
+        id: 5,
+        text: 'What do you whant to tell others who wants to skydive?',
+        sort: 1,
+        type: QUESTION_TYPES.FILE_UPLOAD,
+        nextId: null,
+        parentId: null
+      });
+
+  }
+  return [fileUploadQuestion()];
+}
+
+
+// ----- string versions
+
+export function fileUploadSurveyMockString() {
+  return JSON.stringify(fileUploadSurveyMock(), null, 2);
+
+}
+
+export function radioSequenceDebugSurveyMocString() {
+  return JSON.stringify(radioSequenceDebugSurveyMock(), null, 2);
+}
+
+export function oldSurveyMockString() {
+  return JSON.stringify(oldSurveyMock(), null, 2);
 }
 
 
