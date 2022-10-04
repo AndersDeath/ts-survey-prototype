@@ -37,6 +37,7 @@ export class Question {
   public numberAnswer: number;
   public base64Answer: string;
   public scoreInterval: number[];
+  public required: boolean;
 
   constructor(json) {
     this.id = json['id'] || 0;
@@ -55,7 +56,8 @@ export class Question {
     this.textAnswer = json['textAnswer'] || '';
     this.numberAnswer = json['numberAnswer'] || null;
     this.base64Answer = json['base64Answer'] || '';
-    this.scoreInterval = json['scoreInterval'] || []
+    this.scoreInterval = json['scoreInterval'] || [];
+    this.required = json['required'] || false;
   }
 }
 
