@@ -27,7 +27,8 @@ export function oldSurveyMock(): Question[] {
       sort: 1,
       answerGroup: [firstAnswer, secondAnswer],
       type: QUESTION_TYPES.RADIO,
-      nextId: 2
+      nextId: 2,
+      parentId: 3
     });
   }
 
@@ -77,6 +78,8 @@ export function oldSurveyMock(): Question[] {
       sort: 1,
       type: QUESTION_TYPES.RADIO,
       answerGroup: [thirdAnswer, fourthAnswer],
+      parentId: 3,
+      nextId: null
     });
   }
 
@@ -121,6 +124,7 @@ export function oldSurveyMock(): Question[] {
       sort: 1,
       type: QUESTION_TYPES.CHECKBOX,
       parentId: 4,
+      nextId: null,
       answerGroup: [
         answer1,
         answer2,
@@ -168,7 +172,8 @@ export function surveyMock(): Question[] {
       type: QUESTION_TYPES.SELECT,
       answerGroup: [englandAnswer, franceAnswer],
       nextId: 2,
-      parentId: null
+      parentId: null,
+      required: true
     })
   }
 
@@ -197,7 +202,8 @@ export function surveyMock(): Question[] {
       answerGroup: [firstAnswer, secondAnswer],
       type: QUESTION_TYPES.RADIO,
       nextId: 2,
-      parentId: 1
+      parentId: 1,
+      required: true
     });
   }
 
@@ -210,7 +216,8 @@ export function surveyMock(): Question[] {
       type: QUESTION_TYPES.SCORE,
       nextId: 5,
       parentId: 2,
-      scoreInterval: [5, 10]
+      scoreInterval: [5, 10],
+      required: true
     });
   }
 
@@ -239,7 +246,8 @@ export function surveyMock(): Question[] {
       answerGroup: [firstAnswer, secondAnswer],
       type: QUESTION_TYPES.RADIO,
       nextId: null,
-      parentId: 2
+      parentId: 2,
+      required: true
     });
   }
 
@@ -251,7 +259,8 @@ export function surveyMock(): Question[] {
       sort: 1,
       type: QUESTION_TYPES.TEXTAREA,
       nextId: 7,
-      parentId: null
+      parentId: null,
+      required: true
     });
   }
 
@@ -294,6 +303,7 @@ export function surveyMock(): Question[] {
         answer2,
         answer3
       ],
+      required: true
     });
   }
 
@@ -395,8 +405,8 @@ export function fileUploadSurveyMock(): Question[] {
         nextId: null,
         parentId: null
       });
-
   }
+
   return [fileUploadQuestion()];
 }
 
